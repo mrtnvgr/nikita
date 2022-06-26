@@ -4,7 +4,8 @@ class historiesParser:
         self.data = {"audio_messages": {},
                      "photos":  {},
                      "videos":  {},
-                     "reposts": {}}
+                     "reposts": {},
+                     "polls":   {}}
         self.parseHistories()
 
     def parseHistories(self):
@@ -33,7 +34,14 @@ class historiesParser:
                                                         "text": attachment["wall"]["text"]}
                     if "attachments" in attachment["wall"]:
                         self.data["reposts"][message_id]["attachments"] = attachment["wall"]["attachments"]
-                elif attachment["type"] in ["sticker","gift","grafitti"]:
+                elif attachment["type"]=="poll":
+                    answers = {}
+                    for answer in attachment["poll"]["answers"]:
+                        answers[answer["text"]] = answer["votes"]
+                    self.data["polls"][message_id] = {"date": attachment["poll"]["created"],
+                                                      "question": attachment["poll"]["question"],
+                                                      "answers": answers}
+                elif attachment["type"] in ["sticker","gift","graffiti"]:
                     pass # useless
                 else:
                     print(f'Unknown attachment type: {attachment["type"]}')
