@@ -6,7 +6,8 @@ class historiesParser:
                      "videos":  {},
                      "reposts": {},
                      "polls":   {},
-                     "audios":   {}}
+                     "audios":  {},
+                     "docs":    {}}
         self.parseHistories()
 
     def parseHistories(self):
@@ -47,6 +48,11 @@ class historiesParser:
                                                        "artist": attachment["audio"]["artist"],
                                                        "title": attachment["audio"]["title"],
                                                        "url": attachment["audio"]["url"]}
+                elif attachment["type"]=="doc":
+                    self.data["docs"][message_id] = {"date": attachment["doc"]["date"],
+                                                     "title": attachment["doc"]["title"],
+                                                     "ext": attachment["doc"]["ext"],
+                                                     "url": attachment["doc"]["url"]}
                 elif attachment["type"] in ["sticker","gift","graffiti"]:
                     pass # useless
                 else:

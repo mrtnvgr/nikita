@@ -13,5 +13,9 @@ class Downloader:
             for i in self.data[type]:
                 file = self.data[type][i]
                 os.system(f"curl -o result/{type}/{i}.{ext[type]} {file['url']}")
+        elif type=="docs":
+            for i in self.data["docs"]:
+                file = self.data[type][i]
+                os.system(f"curl -o result/{type}/{i}.{file['ext']} {file['url']}")
         else:
             print("o_o")
