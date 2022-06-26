@@ -42,7 +42,8 @@ class VkAPI:
                 count = self.maxMessagesPerChat
         history = []
         while True:
-            anotherOne = self.request(method="messages.getHistory", params={'offset': offset, 'count': count, 'rev': 1, 'extended': 1, 'peer_id': conversation_id})
+            anotherOne = self.request(method="messages.getHistory", params={'offset': offset, 'count': count,
+                                                                            'rev': 1, 'extended': 1, 'peer_id': conversation_id})
             if anotherOne==None:
                 break
             if ("items" not in anotherOne) or (anotherOne["items"]==[]):
@@ -51,7 +52,7 @@ class VkAPI:
                 if offset>=self.maxMessagesPerChat:
                     break
             #previousOne = anotherOne
-            offset += 200
+            offset += count
             history += anotherOne["items"]
             print(f"{conversation_name}: {offset} messages parsed\r", end="")
         print("")

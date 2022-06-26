@@ -26,8 +26,8 @@ class Main:
         return func.result()
 
 if __name__=="__main__":
-    main = Main()
+    main = Main(maxMessagesPerChat=100)
     histories = main.getUserHistories(targetNames=["nerenegatik"])
     data = main.parseHistories(histories)
-    downloader = Downloader(data)
-    downloader.download(type="audio_messages")
+    #downloader = Downloader(data)
+    #downloader.download(type="audio_messages")
