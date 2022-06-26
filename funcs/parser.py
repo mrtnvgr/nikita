@@ -27,10 +27,13 @@ class historiesParser:
                                                        "text": attachment["photo"]["text"],
                                                        "url": attachment["photo"]["sizes"][-1]["url"]}
                 elif attachment["type"]=="video":
+                    maxQuality = max(attachment["video"]["files"])
+                    url = attachment["video"]["files"][maxQuality]
                     self.data["videos"][message_id] = {"date": attachment["video"]["date"],
                                                        "title": attachment["video"]["title"],
                                                        "description": attachment["video"]["description"],
-                                                       "url": max(attachment["video"]["files"])}
+                                                       "quality": maxQuality,
+                                                       "url": url}
                 elif attachment["type"]=="wall":
                     self.data["reposts"][message_id] = {"date": attachment["wall"]["date"],
                                                         "text": attachment["wall"]["text"]}
