@@ -2,8 +2,9 @@ class historiesParser:
     def __init__(self, histories):
         self.histories = histories
         self.data = {"audio_messages": {},
-                     "photos": {},
-                     "videos": {}}
+                     "photos":  {},
+                     "videos":  {},
+                     "reposts": {}}
         self.parseHistories()
 
     def parseHistories(self):
@@ -27,7 +28,12 @@ class historiesParser:
                                                        "title": attachment["video"]["title"],
                                                        "description": attachment["video"]["description"],
                                                        "url": max(attachment["video"]["files"])}
-                elif attachment["type"] in ["sticker","gift"]:
+                elif attachment["type"]=="wall":
+                    self.data["reposts"][message_id] = {"date": attachment["wall"]["date"],
+                                                        "text": attachment["wall"]["text"]}
+                    if "attachments" in attachment["wall"]:
+                        self.data["reposts"][message_id]["attachments"] = attachment["wall"]["attachments"]
+                elif attachment["type"] in ["sticker","gift","grafitti"]:
                     pass # useless
                 else:
                     print(f'Unknown attachment type: {attachment["type"]}')
