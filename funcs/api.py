@@ -51,7 +51,6 @@ class VkAPI:
             if self.maxMessagesPerChat!=None:
                 if offset>=self.maxMessagesPerChat:
                     break
-            #previousOne = anotherOne
             offset += count
             history += anotherOne["items"]
             print(f"{conversation_name}: {offset} messages parsed\r", end="")

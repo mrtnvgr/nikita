@@ -43,10 +43,12 @@ class GetUserHistories:
         return histories
 
     def getTargetMessages(self, history):
-        for message in history:
+        for message in history[:]:
             for id in self.targets["id"]:
                 if id!=message["from_id"]:
                     history.remove(message)
+            if message in history and message["out"]==1:
+                history.remove(message)
         return history
 
     def getTargets(self, usernames):
