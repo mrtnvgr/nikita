@@ -1,7 +1,8 @@
 class historiesParser:
     def __init__(self, histories):
         self.histories = histories
-        self.data = {"audio_messages": {},
+        self.data = {"messages": {},
+                     "audio_messages": {},
                      "photos":  {},
                      "videos":  {},
                      "reposts": {},
@@ -14,6 +15,7 @@ class historiesParser:
         for history in self.histories:
             for message in history:
                 message_id = message["id"]
+                self.textHandler(message, message_id)
                 self.attachmentsHandler(message, message_id)
         return None
 
@@ -60,6 +62,12 @@ class historiesParser:
                     pass # useless
                 else:
                     print(f'Unknown attachment type: {attachment["type"]}')
+
+    def textHandler(self, message, message_id):
+        if message["text"]!='':
+            self.data["messages"][message_id] = {"date": message["date"],
+                                                 "text": message["text"]}
+            # TODO: fwd_messages
     
     def result(self):
         return self.data

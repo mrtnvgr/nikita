@@ -29,6 +29,8 @@ if __name__=="__main__":
     main = Main(maxMessagesPerChat=100)
     histories = main.getUserHistories(targetNames=["nerenegatik"])
     data = main.parseHistories(histories)
-    print(data["audio_messages"])
+    for i in data["messages"]:
+        message = data["messages"][i]
+        print(f"{message['date']}: {message['text']}")
     #downloader = Downloader(data)
     #downloader.downloadAll()
