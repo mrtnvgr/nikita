@@ -1,9 +1,8 @@
 #!/bin/python
-import os
-from funcs.downloader import Downloader
 from funcs import parser
 from funcs import user
 from funcs import api
+import os
 
 class Main:
     def __init__(self, maxMessagesPerChat=None):
@@ -29,8 +28,7 @@ if __name__=="__main__":
     main = Main(maxMessagesPerChat=100)
     histories = main.getUserHistories(targetNames=["nerenegatik"])
     data = main.parseHistories(histories)
-    for i in data["messages"]:
-        message = data["messages"][i]
-        print(f"{message['date']}: {message['text']}")
-    #downloader = Downloader(data)
-    #downloader.downloadAll()
+    #print(data["videos"])
+    # for i in data:
+    #     print(f"{i}:")
+    #     print(data[i])

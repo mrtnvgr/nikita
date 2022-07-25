@@ -43,7 +43,7 @@ class VkAPI:
         history = []
         while True:
             anotherOne = self.request(method="messages.getHistory", params={'offset': offset, 'count': count,
-                                                                            'rev': 1, 'extended': 1, 'peer_id': conversation_id})
+                                                                            'extended': 1, 'peer_id': conversation_id})
             if anotherOne==None:
                 break
             if ("items" not in anotherOne) or (anotherOne["items"]==[]):
