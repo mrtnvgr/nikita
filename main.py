@@ -20,14 +20,28 @@ class Main:
         func = user.GetUserHistories(vk_session=self.vk, targetNames=targetNames)
         return func.result()
 
+    def getConversations(self):
+        conversations = self.vk.getConversations()["items"]
+        return conversations
+
+    def getConversationHistory(self, conversation):
+        title = conversation["conversation"].get("chat_settings", {}).get("title", "")
+        id = conversation["conversation"]["peer"]["id"]
+        return self.vk.getHistory(title, id)
+
     def parseHistories(self, histories):
         func = parser.historiesParser(histories=histories)
         return func.result()
 
 if __name__=="__main__":
     main = Main(maxMessagesPerChat=100)
-    histories = main.getUserHistories(targetNames=["nerenegatik"])
-    data = main.parseHistories(histories)
+    conversation = main.getConversations()[0]
+    print(main.getConversationHistory(conversation))
+    
+    # names = input("Target names: ").split(" ")
+    # histories = main.getUserHistories(targetNames=names)#["nerenegatik"])
+    # data = main.parseHistories(histories)
+    
     #print(data["videos"])
     # for i in data:
     #     print(f"{i}:")
